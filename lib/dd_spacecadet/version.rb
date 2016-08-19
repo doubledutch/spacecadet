@@ -1,5 +1,5 @@
 module DoubleDutch
-  module FogExp
+  module SpaceCadet
     VERSION = '0.1.0'.freeze
   end
 end

@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    fog_exp (0.1.0)
+    dd_spacecadet (0.1.0)
       fog (~> 1.38.0)
 
 GEM
@@ -237,7 +237,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  fog_exp!
+  dd_spacecadet!
   irbtools (~> 2.0.1)
   rake (~> 11.2.2)
   rspec (~> 3.5.0)

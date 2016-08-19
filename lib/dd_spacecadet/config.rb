@@ -1,7 +1,7 @@
 require 'fog'
 
 module DoubleDutch
-  module FogExp
+  module SpaceCadet
     # Class Config is used to configure a client for a specific Rackspace account
     # You provide the `env`, usually for format is <geo>-<env> (e.g., dfw-prod)
     class Config
@@ -26,13 +26,13 @@ module DoubleDutch
           )
         end
 
-        # DoubleDutch::FogExp::Config.servers.client
+        # DoubleDutch::SpaceCadet::Config.servers.client
         # returns @@servers_client
         def servers_client
           @@servers_client
         end
 
-        # DoubleDutch::FogExp::Config.lbs.client
+        # DoubleDutch::SpaceCadet::Config.lbs.client
         # returns @@lbs_client
         def lbs_client
           @@lbs_client

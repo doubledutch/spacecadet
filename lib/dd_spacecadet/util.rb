@@ -1,11 +1,11 @@
-require 'fog_exp/config'
+require 'dd_spacecadet/config'
 
 module DoubleDutch
-  module FogExp
+  module SpaceCadet
     # Util is a grouping of utility/helper methods
     module Util
       def self._lbs_client(env)
-        DoubleDutch::FogExp::Config.lbs_client[env]
+        DoubleDutch::SpaceCadet::Config.lbs_client[env]
       end
 
       # method for finding an LB based on its name

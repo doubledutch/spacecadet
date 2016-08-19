@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe DoubleDutch::FogExp::Config do
+describe DoubleDutch::SpaceCadet::Config do
   before do
     allow(Fog::Compute).to receive(:new)
       .with(
@@ -28,7 +28,7 @@ describe DoubleDutch::FogExp::Config do
   describe '.register' do
     it 'should register without error' do
       expect do
-        DoubleDutch::FogExp::Config.register(
+        DoubleDutch::SpaceCadet::Config.register(
           'dfw-test', 'testUsername', 'abc123', 'DFW'
         )
       end.not_to raise_error
@@ -37,25 +37,25 @@ describe DoubleDutch::FogExp::Config do
 
   describe '.servers_client' do
     it 'should return the value of @@servers_client' do
-      expect(DoubleDutch::FogExp::Config.servers_client['dfw-test2']).to be_nil
+      expect(DoubleDutch::SpaceCadet::Config.servers_client['dfw-test2']).to be_nil
 
-      DoubleDutch::FogExp::Config.register(
+      DoubleDutch::SpaceCadet::Config.register(
         'dfw-test2', 'testUsername', 'abc123', 'DFW'
       )
 
-      expect(DoubleDutch::FogExp::Config.servers_client['dfw-test2']).to eql(:compute)
+      expect(DoubleDutch::SpaceCadet::Config.servers_client['dfw-test2']).to eql(:compute)
     end
   end
 
   describe '.lbs_client' do
     it 'should return the value of @@servers_client' do
-      expect(DoubleDutch::FogExp::Config.lbs_client['dfw-test3']).to be_nil
+      expect(DoubleDutch::SpaceCadet::Config.lbs_client['dfw-test3']).to be_nil
 
-      DoubleDutch::FogExp::Config.register(
+      DoubleDutch::SpaceCadet::Config.register(
         'dfw-test3', 'testUsername', 'abc123', 'DFW'
       )
 
-      expect(DoubleDutch::FogExp::Config.lbs_client['dfw-test3']).to eql(:loadbalancers)
+      expect(DoubleDutch::SpaceCadet::Config.lbs_client['dfw-test3']).to eql(:loadbalancers)
     end
   end
 end

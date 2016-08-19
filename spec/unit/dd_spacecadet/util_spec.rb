@@ -17,7 +17,7 @@ def mock_lbs_list
   }
 end
 
-describe DoubleDutch::FogExp::Util do
+describe DoubleDutch::SpaceCadet::Util do
   let(:env) { 'test-env' }
 
   before do
@@ -25,15 +25,15 @@ describe DoubleDutch::FogExp::Util do
 
     client = double('Fog::Rackspace::LoadBalancers', list_load_balancers: resp)
 
-    allow(DoubleDutch::FogExp::Util).to receive(:_lbs_client).with(env)
+    allow(DoubleDutch::SpaceCadet::Util).to receive(:_lbs_client).with(env)
       .and_return(client)
   end
 
-  after { allow(DoubleDutch::FogExp::Util).to receive(:_lbs_client).and_call_original }
+  after { allow(DoubleDutch::SpaceCadet::Util).to receive(:_lbs_client).and_call_original }
 
   describe '.find_lb' do
     it 'should find all load balancers containing the search string' do
-      r = DoubleDutch::FogExp::Util.find_lb(env, 'lb')
+      r = DoubleDutch::SpaceCadet::Util.find_lb(env, 'lb')
       expect(r.size).to eql(2)
 
       expect(r[0][:name]).to eql('test-lb01')
@@ -45,7 +45,7 @@ describe DoubleDutch::FogExp::Util do
 
     it 'should return an empty array for a non-matching value' do
       expect(
-        DoubleDutch::FogExp::Util.find_lb(env, 'RANDOM_NOT_FOUND_STRING')
+        DoubleDutch::SpaceCadet::Util.find_lb(env, 'RANDOM_NOT_FOUND_STRING')
       ).to be_empty
     end
   end

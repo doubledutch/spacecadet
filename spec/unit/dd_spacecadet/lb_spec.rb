@@ -139,20 +139,20 @@ def mock_draining_status
   ]
 end
 
-describe DoubleDutch::FogExp::LB do
+describe DoubleDutch::SpaceCadet::LB do
   before do
-    allow_any_instance_of(DoubleDutch::FogExp::LB).to receive(:get_lbs).and_return(mock_lbs_summary)
+    allow_any_instance_of(DoubleDutch::SpaceCadet::LB).to receive(:get_lbs).and_return(mock_lbs_summary)
   end
   after do
-    allow_any_instance_of(DoubleDutch::FogExp::LB).to receive(:get_lbs).and_call_original
+    allow_any_instance_of(DoubleDutch::SpaceCadet::LB).to receive(:get_lbs).and_call_original
   end
 
   let(:env) { 'test-env' }
-  let(:lb_i) { DoubleDutch::FogExp::LB.new(env) }
+  let(:lb_i) { DoubleDutch::SpaceCadet::LB.new(env) }
 
   describe '.new' do
     it 'should set the environment and lbs instance variables' do
-      i = DoubleDutch::FogExp::LB.new(env)
+      i = DoubleDutch::SpaceCadet::LB.new(env)
       expect(i).not_to be_nil
       expect(i.env).to eql('test-env')
       expect(i.lbs).to eql([])
@@ -161,11 +161,11 @@ describe DoubleDutch::FogExp::LB do
 
   describe '.find_lb' do
     before do
-      allow(DoubleDutch::FogExp::Util).to receive(:_get_lbs).with(env)
+      allow(DoubleDutch::SpaceCadet::Util).to receive(:_get_lbs).with(env)
         .and_return(mock_lbs_summary)
     end
 
-    after { allow(DoubleDutch::FogExp::Util).to receive(:_get_lbs).and_call_original }
+    after { allow(DoubleDutch::SpaceCadet::Util).to receive(:_get_lbs).and_call_original }
 
     it 'should find all load balancers containing the search string' do
       r = lb_i.find_lb('lb')
@@ -185,14 +185,14 @@ describe DoubleDutch::FogExp::LB do
 
   describe '.find_lb_and_use' do
     before do
-      allow(DoubleDutch::FogExp::Util).to receive(:_get_lbs).with(env)
+      allow(DoubleDutch::SpaceCadet::Util).to receive(:_get_lbs).with(env)
         .and_return(mock_lbs_summary)
     end
 
-    after { allow(DoubleDutch::FogExp::Util).to receive(:_get_lbs).and_call_original }
+    after { allow(DoubleDutch::SpaceCadet::Util).to receive(:_get_lbs).and_call_original }
 
     it 'should find all load balancers containing the search string and add them' do
-      i = DoubleDutch::FogExp::LB.new(env)
+      i = DoubleDutch::SpaceCadet::LB.new(env)
       r = i.find_lb_and_use('lb')
       expect(r.size).to eql(2)
 
@@ -210,7 +210,7 @@ describe DoubleDutch::FogExp::LB do
 
   describe '.add_lb' do
     it 'should add the LB ID to the list of LBs' do
-      i = DoubleDutch::FogExp::LB.new(env)
+      i = DoubleDutch::SpaceCadet::LB.new(env)
 
       r = i.add_lb(42)
       expect(r.size).to eql(1)
@@ -223,7 +223,7 @@ describe DoubleDutch::FogExp::LB do
     end
 
     it 'should not allow duplicate entries' do
-      i = DoubleDutch::FogExp::LB.new(env)
+      i = DoubleDutch::SpaceCadet::LB.new(env)
 
       r = i.add_lb(42)
       expect(r.size).to eql(1)
@@ -247,31 +247,31 @@ describe DoubleDutch::FogExp::LB do
       client = double('Client', list_servers: client_resp)
       client_hash = { env => client }
 
-      allow(DoubleDutch::FogExp::Config).to receive(:servers_client)
+      allow(DoubleDutch::SpaceCadet::Config).to receive(:servers_client)
         .and_return(client_hash)
 
-      allow(DoubleDutch::FogExp::NodeIP).to receive(:get_name_for).with(
+      allow(DoubleDutch::SpaceCadet::NodeIP).to receive(:get_name_for).with(
         env, '10.0.0.142'
       ).and_return('test-app01')
 
-      allow(DoubleDutch::FogExp::NodeIP).to receive(:get_name_for).with(
+      allow(DoubleDutch::SpaceCadet::NodeIP).to receive(:get_name_for).with(
         env, '10.0.0.184'
       ).and_return('test-app02')
 
-      allow_any_instance_of(DoubleDutch::FogExp::LB).to receive(:get_lb_details)
+      allow_any_instance_of(DoubleDutch::SpaceCadet::LB).to receive(:get_lb_details)
         .with(42)
         .and_return(mock_lbs_resp)
     end
 
     after do
-      allow(DoubleDutch::FogExp::NodeIP).to receive(:get_name_for).and_call_original
-      allow(DoubleDutch::FogExp::NodeIP).to receive(:get_lb_details).and_call_original
-      allow(DoubleDutch::FogExp::Config).to receive(:servers_client).and_call_original
-      allow_any_instance_of(DoubleDutch::FogExp::LB).to receive(:get_lb_details).and_call_original
+      allow(DoubleDutch::SpaceCadet::NodeIP).to receive(:get_name_for).and_call_original
+      allow(DoubleDutch::SpaceCadet::NodeIP).to receive(:get_lb_details).and_call_original
+      allow(DoubleDutch::SpaceCadet::Config).to receive(:servers_client).and_call_original
+      allow_any_instance_of(DoubleDutch::SpaceCadet::LB).to receive(:get_lb_details).and_call_original
     end
 
     let(:lb_i) do
-      i = DoubleDutch::FogExp::LB.new(env)
+      i = DoubleDutch::SpaceCadet::LB.new(env)
       expect(i.add_lb(42)).to eql([42])
       i
     end
@@ -307,16 +307,16 @@ describe DoubleDutch::FogExp::LB do
 
   describe '.update_node' do
     before do
-      allow_any_instance_of(DoubleDutch::FogExp::LB).to receive(:status)
+      allow_any_instance_of(DoubleDutch::SpaceCadet::LB).to receive(:status)
         .and_return(mock_healthy_status)
     end
 
     after do
-      allow_any_instance_of(DoubleDutch::FogExp::LB).to receive(:status).and_call_original
+      allow_any_instance_of(DoubleDutch::SpaceCadet::LB).to receive(:status).and_call_original
     end
 
     let(:lb_i) do
-      i = DoubleDutch::FogExp::LB.new(env)
+      i = DoubleDutch::SpaceCadet::LB.new(env)
       expect(i.add_lb(42)).to eql([42])
       expect(i.add_lb(84)).to eql([42, 84])
       i
@@ -324,12 +324,12 @@ describe DoubleDutch::FogExp::LB do
 
     context 'input validation' do
       before do
-        allow_any_instance_of(DoubleDutch::FogExp::LB).to receive(:flush_updates)
+        allow_any_instance_of(DoubleDutch::SpaceCadet::LB).to receive(:flush_updates)
           .and_return(nil)
       end
 
       after do
-        allow_any_instance_of(DoubleDutch::FogExp::LB).to receive(:flush_updates)
+        allow_any_instance_of(DoubleDutch::SpaceCadet::LB).to receive(:flush_updates)
           .and_call_original
       end
 
@@ -347,7 +347,7 @@ describe DoubleDutch::FogExp::LB do
     context 'when normal' do
       before do
         @lbs_client = double('Fog::Rackspace::LoadBalancers', update_node: nil)
-        allow_any_instance_of(DoubleDutch::FogExp::LB).to receive(:lbs_client)
+        allow_any_instance_of(DoubleDutch::SpaceCadet::LB).to receive(:lbs_client)
           .and_return(@lbs_client)
       end
 
@@ -364,7 +364,7 @@ describe DoubleDutch::FogExp::LB do
 
     context 'when already draining' do
       before do
-        allow_any_instance_of(DoubleDutch::FogExp::LB).to receive(:status)
+        allow_any_instance_of(DoubleDutch::SpaceCadet::LB).to receive(:status)
           .and_return(mock_draining_status)
       end
 

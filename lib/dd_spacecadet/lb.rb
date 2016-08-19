@@ -1,7 +1,7 @@
-require 'fog_exp/util'
+require 'dd_spacecadet/util'
 
 module DoubleDutch
-  module FogExp
+  module SpaceCadet
     # LB is the class used for manging the Load Balancer configs
     class LB
       attr_reader :env, :lbs
@@ -23,7 +23,7 @@ module DoubleDutch
 
       # find an LB using a search string
       def find_lb(search)
-        DoubleDutch::FogExp::Util.find_lb(@env, search)
+        DoubleDutch::SpaceCadet::Util.find_lb(@env, search)
       end
 
       # the same as find_lb, but it adds each to the classs
@@ -78,7 +78,7 @@ module DoubleDutch
       private
 
       def lbs_client
-        DoubleDutch::FogExp::Config.lbs_client[@env]
+        DoubleDutch::SpaceCadet::Config.lbs_client[@env]
       end
 
       def get_lb_details(lb_id)
@@ -169,7 +169,7 @@ module DoubleDutch
           enabled_count += 1 if node['condition'].casecmp('enabled').zero?
 
           {
-            name: DoubleDutch::FogExp::NodeIP.get_name_for(@env, node['address']),
+            name: DoubleDutch::SpaceCadet::NodeIP.get_name_for(@env, node['address']),
             ip: node['address'],
             id: node['id'],
             condition: node['condition']

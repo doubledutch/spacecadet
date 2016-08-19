@@ -1,14 +1,14 @@
 $LOAD_PATH.unshift(File.expand_path('../lib', __FILE__))
 
-require 'fog_exp/version'
+require 'dd_spacecadet/version'
 
 Gem::Specification.new do |s|
-  s.name                  = 'fog_exp'
+  s.name                  = 'dd_spacecadet'
   s.summary               = 'Library for manipulating Rackspace Cloud Load Balancers'
-  s.author                = 'Tim Heckman'
-  s.email                 = 'theckman@doubledutch.me'
+  s.author                = 'DoubleDutch Engineering Operations'
+  s.email                 = 'engops@doubledutch.me'
   s.license               = 'All Rights Reserved'
-  s.version               = DoubleDutch::FogExp::VERSION
+  s.version               = DoubleDutch::SpaceCadet::VERSION
   s.required_ruby_version = '~> 2.3'
   s.date                  = Time.now.strftime('%Y-%m-%d')
   s.homepage              = ''

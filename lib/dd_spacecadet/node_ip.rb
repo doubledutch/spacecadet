@@ -1,9 +1,9 @@
-require 'fog_exp/config'
+require 'dd_spacecadet/config'
 
 module DoubleDutch
-  module FogExp
+  module SpaceCadet
     class Error < StandardError; end
-    class ServerNotFound < DoubleDutch::FogExp::Error; end
+    class ServerNotFound < DoubleDutch::SpaceCadet::Error; end
 
     # NodeIP is a class of helper methods to find a node
     # based on its name or IP address
@@ -68,7 +68,7 @@ module DoubleDutch
           # only refresh if a refresh is needed
           if needs_refresh?(env)
             # get an Array of all of the servers
-            servers = DoubleDutch::FogExp::Config.servers_client[env].list_servers.data[:body]['servers']
+            servers = DoubleDutch::SpaceCadet::Config.servers_client[env].list_servers.data[:body]['servers']
 
             # hbn: HashByName
             # hbi: HashByIp
