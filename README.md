@@ -32,9 +32,9 @@ DoubleDutch::SpaceCadet::Config.register(
 
 dfw_prod = DoubleDutch::SpaceCadet::LB.new(env)
 
-# search for an LB by its label, in this example "stg-lb"
+# search for an LB by its label, in this example "prod-lb"
 # if multiple LBs match it will use *ALL* of them
-dfw_prod.find_lb_and_use('stg-lb')
+dfw_prod.find_lb_and_use('prod-lb')
 
 # gets the status of each LB and its nodes
 # you can use dfw.print_status to print the info to stdout with formatting
