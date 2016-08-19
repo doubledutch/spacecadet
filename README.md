@@ -3,8 +3,13 @@ SpaceCadet is a library written in Ruby for interacting with the Rackspace Cloud
 The library itself uses the `fog` gem, which is a very popular Ruby library for interacting with
 all of the different cloud providers (including Rackspace).
 
+## Why SpaceCadet?
+Because this library is meant to speed up deploys, and it's a little "special"...
+
 It's not meant to be pretty, clean, or re-usable. This library was written with one purpose in mind:
-being able to change a backend node from `ENABLED` to `DRAINING`.
+being able to change a single backend node from `ENABLED` to `DRAINING` within multiple LBs.
+
+Also: `(Rack)space`.
 
 ## Including in Gemfile
 
