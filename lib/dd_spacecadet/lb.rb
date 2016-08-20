@@ -60,11 +60,9 @@ module DoubleDutch
       # this does the same thing as status
       # put it prints it the information to stdout
       def print_status
-        statuses = status
-
-        statuses.each do |status|
-          puts "#{status[:name]} (#{status[:id]})"
-          status[:nodes].each { |n| puts "    #{n[:name]}    #{n[:condition]}    #{n[:id]}    #{n[:ip]}" }
+        status.each do |st|
+          puts "#{st[:name]} (#{st[:id]})"
+          st[:nodes].each { |n| puts "    #{n[:name]}    #{n[:condition]}    #{n[:id]}    #{n[:ip]}" }
           puts '---'
         end
 
