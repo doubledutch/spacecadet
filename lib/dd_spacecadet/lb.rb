@@ -28,11 +28,7 @@ module DoubleDutch
 
       # the same as find_lb, but it adds each to the classs
       def find_lb_and_use(search)
-        lbs = find_lb(search)
-
-        lbs.each { |lb| add_lb(lb[:id]) }
-
-        lbs
+        find_lb(search).each { |lb| add_lb(lb[:id]) }
       end
 
       # gets the status of managed LBs
