@@ -1,3 +1,4 @@
+require 'dd_spacecadet/error'
 require 'dd_spacecadet/util'
 
 module DoubleDutch
@@ -38,7 +39,7 @@ module DoubleDutch
         parse_lb_details(details)
       end
 
-      # updates the condition of a node withi the Load Balancer
+      # updates the condition of a node with the Load Balancer
       # this is used to move from :enabled => :draining
       def update_node(name, condition)
         # check whether the condition is valid
@@ -48,18 +49,20 @@ module DoubleDutch
 
         lb_details = status
 
-        raise 'No LB details found!' if lb_details.empty?
+        raise LoadBalancerNotFound, 'No LB details found!' if lb_details.empty?
 
         to_update = calculate_update(name.downcase, lb_details, condition)
 
-        raise "We only found #{to_update.size} nodes across #{lb_details.size} LBs" if to_update.size != lb_details.size
+        if to_update.size != lb_details.size
+          raise LBInconsistentState, "We only found #{to_update.size} nodes across #{lb_details.size} LBs"
+        end
 
         flush_updates(to_update)
       end
 
       # this does the same thing as status
       # put it prints it the information to stdout
-      def print_status
+      def render_status
         status.each do |st|
           puts "#{st[:name]} (#{st[:id]})"
           st[:nodes].each { |n| puts "    #{n[:name]}    #{n[:condition]}    #{n[:id]}    #{n[:ip]}" }
@@ -110,7 +113,7 @@ module DoubleDutch
         details.each do |lbd|
           # make sure this LB is in a safe state to mutate
           unless safe?(lbd, condition)
-            raise "#{lbd[:name]} LB unsafe for draining"
+            raise LBUnsafe, "#{lbd[:name]} LB unsafe for draining"
           end
 
           # loop over the registered nodes to find the ID

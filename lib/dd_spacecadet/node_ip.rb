@@ -1,10 +1,8 @@
+require 'dd_spacecadet/error'
 require 'dd_spacecadet/config'
 
 module DoubleDutch
   module SpaceCadet
-    class Error < StandardError; end
-    class ServerNotFound < DoubleDutch::SpaceCadet::Error; end
-
     # NodeIP is a class of helper methods to find a node
     # based on its name or IP address
     class NodeIP
@@ -57,7 +55,7 @@ module DoubleDutch
         def get_details(server)
           priv_addresses = server.dig('addresses', 'private')
 
-          raise 'Node missing private addresses' if priv_addresses.nil? || priv_addresses.empty?
+          raise MailformedNodeObject, 'Node missing private addresses' if priv_addresses.nil? || priv_addresses.empty?
 
           [server['name'].downcase, priv_addresses[0]['addr']]
         end

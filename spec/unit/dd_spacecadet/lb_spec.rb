@@ -340,7 +340,7 @@ describe DoubleDutch::SpaceCadet::LB do
       end
 
       it 'should raise if the node was not found on all LBs' do
-        expect { lb_i.update_node('test-app', :enabled) }.to raise_error(RuntimeError)
+        expect { lb_i.update_node('test-app', :enabled) }.to raise_error(DoubleDutch::SpaceCadet::LBInconsistentState)
       end
     end
 
@@ -369,7 +369,7 @@ describe DoubleDutch::SpaceCadet::LB do
       end
 
       it 'should actively prevent you from draining multiple backends' do
-        expect { lb_i.update_node('test-app01', :draining) }.to raise_error(RuntimeError)
+        expect { lb_i.update_node('test-app01', :draining) }.to raise_error(DoubleDutch::SpaceCadet::LBUnsafe)
       end
     end
   end

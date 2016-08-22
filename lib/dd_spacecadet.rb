@@ -1,5 +1,6 @@
 require 'dd_spacecadet/version'
 require 'dd_spacecadet/util'
+require 'dd_spacecadet/error'
 require 'dd_spacecadet/config'
 require 'dd_spacecadet/node_ip'
 require 'dd_spacecadet/lb'
