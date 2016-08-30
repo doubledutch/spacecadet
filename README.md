@@ -3,6 +3,9 @@ SpaceCadet is a library written in Ruby for interacting with the Rackspace Cloud
 The library itself uses the `fog` gem, which is a very popular Ruby library for interacting with
 all of the different cloud providers (including Rackspace).
 
+## License
+SpaceCadet is released under the [Apache 2.0](https://www.apache.org/licenses/LICENSE-2.0) license. See the [LICENSE](https://github.com/doubledutch/spacecadet/blob/master/LICENSE) file for full the full details of the license.
+
 ## Why SpaceCadet?
 Because this library is meant to speed up deploys, and it's a little "special"...
 
