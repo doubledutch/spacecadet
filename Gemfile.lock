@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dd_spacecadet (0.1.0)
+    dd_spacecadet (0.2.0)
       fog (~> 1.38.0)
 
 GEM
