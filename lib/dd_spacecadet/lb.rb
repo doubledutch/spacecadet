@@ -19,6 +19,8 @@ module DoubleDutch
   module SpaceCadet
     # LB is the class used for manging the Load Balancer configs
     class LB
+      MAX_IMMUTABLE_RETRIES ||= 3
+
       attr_reader :env, :lbs
 
       def initialize(env)
@@ -141,15 +143,24 @@ module DoubleDutch
       end
 
       def flush_update(update)
-        call_update(update)
-      # immediately after updating an LB config, Rackspace marks the LB
-      # as being immutable (meaning no further config changes can happen)
-      # this exception below is what is thrown by Fog if we hit that situation
-      rescue Fog::Rackspace::LoadBalancers::ServiceError
-        # the LB is currently marked as being immutable
-        # wait N arbitrary seconds before trying again
-        sleep(5)
-        call_update(update)
+        count = 0
+
+        loop do
+          begin
+            call_update(update)
+
+            break
+          # immediately after updating an LB config, Rackspace marks the LB
+          # as being immutable (meaning no further config changes can happen)
+          # this exception below is what is thrown by Fog if we hit that situation
+          rescue Fog::Rackspace::LoadBalancers::ServiceError
+            raise if count == (MAX_IMMUTABLE_RETRIES - 1)
+
+            sleep(5)
+
+            count += 1
+          end
+        end
       end
 
       def call_update(update)
